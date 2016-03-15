@@ -1,4 +1,4 @@
-# generator-webpack-react [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-webpack-react [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > webpack-react
 
 ## Installation
@@ -24,9 +24,9 @@ Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he
 MIT © 
 
 
-[npm-image]: https://badge.fury.io/js/generator-demo-3.svg
-[npm-url]: https://npmjs.org/package/generator-demo-3
-[travis-image]: https://travis-ci.org/linder0209/generator-demo-3.svg?branch=master
-[travis-url]: https://travis-ci.org/linder0209/generator-demo-3
-[daviddm-image]: https://david-dm.org/linder0209/generator-demo-3.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/linder0209/generator-demo-3
+[npm-image]: https://badge.fury.io/js/generator-webpack-react.svg
+[npm-url]: https://npmjs.org/package/generator-webpack-react
+[travis-image]: https://travis-ci.org/linder0209/generator-webpack-react.svg?branch=master
+[travis-url]: https://travis-ci.org/linder0209/generator-webpack-react
+[daviddm-image]: https://david-dm.org/linder0209/generator-webpack-react.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/linder0209/generator-webpack-react
