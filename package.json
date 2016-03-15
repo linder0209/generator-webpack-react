@@ -1,0 +1,44 @@
+{
+  "name": "generator-webpack-react",
+  "version": "0.1.0",
+  "author": {
+    "name": "Linder Wang",
+    "email": "linder0209@126.com",
+    "url": "https://github.com/linder0209"
+  },
+  "description": "Yeoman generator for using React Redux Router etc. with Webpack ",
+  "keywords": [
+    "yeoman-generator",
+    "webpack",
+    "react",
+    "redux",
+    "router"
+  ],
+  "files": [
+    "generators"
+  ],
+  "main": "generators/app/index.js",
+  "scripts": {
+
+  },
+  "dependencies": {
+    "yeoman-generator": "^0.21.1",
+    "chalk": "^1.0.0",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "yeoman-assert": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linder0209/generator-webpack-react.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linder0209/generator-webpack-react/issues"
+  },
+  "homepage": "https://github.com/linder0209/generator-webpack-react#readme"
+}
