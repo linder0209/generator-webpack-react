@@ -1,17 +1,18 @@
-import yeoman from 'yeoman-generator';
-import chalk from 'chalk';
-import yosay from 'yosay';
+'use strict';
+var yeoman = require('yeoman-generator');
+var chalk = require('chalk');
+var yosay = require('yosay');
 
-class ReactGenerator extends yeoman.generators.Base {
-  prompting() {
-    const done = this.async();
+module.exports = yeoman.generators.Base.extend({
+  prompting: function () {
+    var done = this.async();
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the bedazzling ' + chalk.red('') + ' generator!'
+      'Welcome to the dandy ' + chalk.red('') + ' generator!'
     ));
 
-    const prompts = [{
+    var prompts = [{
       type: 'confirm',
       name: 'someOption',
       message: 'Would you like to enable this option?',
@@ -24,18 +25,16 @@ class ReactGenerator extends yeoman.generators.Base {
 
       done();
     }.bind(this));
-  }
+  },
 
-  writing() {
+  writing: function () {
     this.fs.copy(
       this.templatePath('dummyfile.txt'),
       this.destinationPath('dummyfile.txt')
     );
-  }
+  },
 
-  install() {
+  install: function () {
     this.installDependencies();
   }
-}
-
-export default ReactGenerator;
+});
