@@ -1,5 +1,5 @@
 # generator-webpack-react [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> webpack-react
+> Yeoman generator for using React Redux Router etc. with Webpack
 
 ## Installation
 
@@ -21,7 +21,8 @@ yo webpack-react
 Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he&#39;s very easy to work with. If you think he&#39;s too opinionated, he can be easily convinced. Feel free to [learn more about him](http://yeoman.io/).
 
 ## License
-MIT © 
+
+MIT © [wangyanjun](https://github.com/linder0209)
 
 
 [npm-image]: https://badge.fury.io/js/generator-webpack-react.svg
@@ -30,3 +31,5 @@ MIT ©
 [travis-url]: https://travis-ci.org/linder0209/generator-webpack-react
 [daviddm-image]: https://david-dm.org/linder0209/generator-webpack-react.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/linder0209/generator-webpack-react
+[coveralls-image]: https://coveralls.io/repos/linder0209/generator-webpack-react/badge.svg
+[coveralls-url]: https://coveralls.io/r/linder0209/generator-webpack-react
