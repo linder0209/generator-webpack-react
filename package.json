@@ -1,6 +1,6 @@
 {
   "name": "generator-webpack-react",
-  "version": "0.1.4",
+  "version": "0.1.0",
   "author": {
     "name": "Linder Wang",
     "email": "linder0209@126.com",
@@ -18,13 +18,13 @@
     "generators"
   ],
   "main": "generators/app/index.js",
-  "scripts": {
-
-  },
+  "scripts": {},
   "dependencies": {
-    "yeoman-generator": "^0.21.1",
-    "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
+    "chalk": "^1.1.1",
+    "html-wiring": "^1.2.0",
+    "underscore.string": "^3.3.4",
+    "yeoman-generator": "^0.22.5",
+    "yosay": "^1.1.0"
   },
   "devDependencies": {
     "yeoman-assert": "^2.0.0"

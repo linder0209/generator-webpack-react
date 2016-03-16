@@ -1,0 +1,15 @@
+//变量
+@import "core/variables";
+//函数等
+@import "core/mixins";
+//基于 normalize 重置样式
+@import "core/normalize";
+//自定义重置样式
+@import "core/reset";
+
+//组件
+@import "core/components/comp1";
+
+//各模块样式
+@import "modules/main";
+
