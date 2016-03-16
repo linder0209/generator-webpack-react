@@ -48,9 +48,9 @@ gulp.task('size', () => {
 
 /**
  * 压缩
- * 文件名格式： fe-m-module-YYYYMMDDTHHmm 符合上线发布格式
+ * 文件名格式（根据需要自定义）： filename-YYYYMMDDTHHmm
  */
-const fileName = `fe-m-module-${moment().format('YYYYMMDDTHHmm')}.zip`;
+const fileName = `filename-${moment().format('YYYYMMDDTHHmm')}.zip`;
 gulp.task('zip', () => {
   return gulp.src('dist/*')
     .pipe($.zip(fileName))
