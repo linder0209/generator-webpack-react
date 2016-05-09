@@ -155,14 +155,14 @@ gulp.task('webpack:build', () => {
 
 
 //开发环境，启动服务
-gulp.task('server', ['styles', 'copy:dev'], () => {
+gulp.task('server', [<% if (style === 'sass' || style === 'less') { %>'styles', <% } %>'copy:dev'], () => {
   gulp.start(['webpack:server']);
   <% if (style === 'sass') { %>gulp.watch('app/sass/**/*.scss', ['styles']);<% }else if(style === 'less'){ %>gulp.watch('app/less/**/*.less', ['styles']);<% } %>
   gulp.watch(['app/scripts/config/index.dev.js', 'app/scripts/containers/Root.dev.js', 'app/scripts/store/configureStore.dev.js'], ['copy:dev']);
 });
 
 //生产环境，启动服务
-gulp.task('server:prod', ['styles', 'copy:prod'], () => {
+gulp.task('server:prod', [<% if (style === 'sass' || style === 'less') { %>'styles', <% } %>'copy:prod'], () => {
   gulp.start(['webpack:server']);
   <% if (style === 'sass') { %>gulp.watch('app/sass/**/*.scss', ['styles']);<% }else if(style === 'less'){ %>gulp.watch('app/less/**/*.less', ['styles']);<% } %>
   gulp.watch(['app/scripts/config/index.prod.js', 'app/scripts/containers/Root.prod.js', 'app/scripts/store/configureStore.prod.js'], ['copy:prod']);
@@ -178,7 +178,7 @@ gulp.task('connect', () => {
 });
 
 // 编译打包，正式环境
-gulp.task('build', ['clean', 'styles', 'copy:prod'], () => {
+gulp.task('build', ['clean', <% if (style === 'sass' || style === 'less') { %>'styles', <% } %>'copy:prod'], () => {
   gulp.start(['webpack:build']);
 });
 

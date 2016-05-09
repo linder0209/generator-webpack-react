@@ -1,5 +1,10 @@
 # generator-webpack-react - version log
 
+## 0.3.1 修复 bug (2016-5-9)
+
+* 修改 README 说明
+* 修改当 style 选择 css 时,不能正常启动的问题
+
 ## 0.3.0  发布第二版(2016-5-4)
 
 * 重新整合 React Redux Router 例子(**该例子比较实用,建议好好研读一下**)
