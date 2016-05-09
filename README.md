@@ -52,6 +52,9 @@ gulp connect
 * [react-router](https://github.com/reactjs/react-router)
 * [eslint](http://eslint.org/)
 
+## Version Log
+
+[Version](./VERSION.md)
 
 ## License
 
