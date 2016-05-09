@@ -1,4 +1,4 @@
-# generator-webpack-react v0.3.0
+# generator-webpack-react v0.3.1
 
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][daviddm-image]][daviddm-url] 
