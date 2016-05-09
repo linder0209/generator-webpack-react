@@ -2,9 +2,10 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlwebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin  from 'extract-text-webpack-plugin';
-import precss  from 'precss';
+<% if (postcss) { %>
+import precss from 'precss';
 import autoprefixer from 'autoprefixer';
-
+<% } %>
 const hotDevServer = 'webpack/hot/dev-server';
 // https://github.com/webpack/webpack-dev-server
 const webpackDevServer = 'webpack-dev-server/client?http://localhost:9090';
@@ -46,14 +47,14 @@ let webpackConfig = {
       }
     }
   },
-
+  <% if (postcss) { %>
   postcss () {
     return {
       defaults: [precss, autoprefixer],
       cleaner: [autoprefixer({browsers: ['last 2 version', 'chrome >=30', 'Android >= 4.3']})]
     };
-  },
-
+  },<% } %>
+  
   resolve: {
     root: [appPath], // 设置要加载模块根路径，该路径必须是绝对路径
     //自动扩展文件后缀名

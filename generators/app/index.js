@@ -247,7 +247,7 @@ module.exports = Base.extend({
     if (this.options['skip-install']) {
       return;
     }
-    //this.installDependencies();
+    this.installDependencies();
   },
 
   /**

@@ -8,10 +8,15 @@ import moment from 'moment';
 import md5File from 'md5-file';
 import chalk from 'chalk';
 import filePackage from 'file-package';
-
 import config from './webpack.config.babel';
 import productionConfig from './webpack.production.config.babel';
 
+<% if(style === 'less'){ %>import lessAutoprefix from 'less-plugin-autoprefix';
+const _autoprefix = new lessAutoprefix({
+  browsers: ['last 2 version', 'chrome >=30', 'Android >= 4.3'],
+  flexbox: 'no-2009',
+  remove: false // 是否自动删除过时的前缀
+});<% } %>
 const $ = gulpLoadPlugins();
 const ip = 'localhost';
 const port = '9090';
@@ -19,7 +24,7 @@ const port = '9090';
 // webpack gulp 配置可参考 https://github.com/webpack/webpack-with-common-libs/blob/master/gulpfile.js
 <% if (style === 'sass') { %>
 //利用sass生成styles任务
-gulp.task('sass', () => {
+gulp.task('styles', () => {
   return gulp.src('app/sass/*.scss')
     .pipe($.sass.sync({
       outputStyle: 'expanded', // 展开的
@@ -33,9 +38,14 @@ gulp.task('sass', () => {
     }))
     .pipe(gulp.dest('app/styles'));
 });<% }else if(style === 'less'){ %>
-
-<% }else if(style === 'stylus'){ %>
-
+//利用less生成styles任务
+gulp.task('styles', () => {
+  return gulp.src('app/less/*.less')
+    .pipe($.less({
+      plugins: [_autoprefix]
+    }))
+    .pipe(gulp.dest('app/styles'));
+});
 <% } %>
 
 //复制替换文件，分开发和正式环境
@@ -119,9 +129,8 @@ gulp.task('webpack:server', () => {
       // Server listening
       $.util.log('[webpack-dev-server]', `http://${ip}:${port}/`);
 
-// keep the server alive or continue?
-// Chrome is google chrome on OS X, google-chrome on Linux and chrome on Windows.
-// app 在 OS X 中是 google chrome, 在 Windows 为 chrome ,在 Linux 为 google-chrome
+      // Chrome is google chrome on OS X, google-chrome on Linux and chrome on Windows.
+      // app 在 OS X 中是 google chrome, 在 Windows 为 chrome ,在 Linux 为 google-chrome
       opn(port === '80' ? `http://${ip}` : `http://${ip}:${port}/`, {app: 'google chrome'});
     });
 
@@ -146,16 +155,16 @@ gulp.task('webpack:build', () => {
 
 
 //开发环境，启动服务
-gulp.task('server', ['sass', 'copy:dev'], () => {
+gulp.task('server', ['styles', 'copy:dev'], () => {
   gulp.start(['webpack:server']);
-  gulp.watch('app/sass/**/*.scss', ['sass']);
+  <% if (style === 'sass') { %>gulp.watch('app/sass/**/*.scss', ['styles']);<% }else if(style === 'less'){ %>gulp.watch('app/less/**/*.less', ['styles']);<% } %>
   gulp.watch(['app/scripts/config/index.dev.js', 'app/scripts/containers/Root.dev.js', 'app/scripts/store/configureStore.dev.js'], ['copy:dev']);
 });
 
 //生产环境，启动服务
-gulp.task('server:prod', ['sass', 'copy:prod'], () => {
+gulp.task('server:prod', ['styles', 'copy:prod'], () => {
   gulp.start(['webpack:server']);
-  gulp.watch('app/sass/**/*.scss', ['sass']);
+  <% if (style === 'sass') { %>gulp.watch('app/sass/**/*.scss', ['styles']);<% }else if(style === 'less'){ %>gulp.watch('app/less/**/*.less', ['styles']);<% } %>
   gulp.watch(['app/scripts/config/index.prod.js', 'app/scripts/containers/Root.prod.js', 'app/scripts/store/configureStore.prod.js'], ['copy:prod']);
 });
 
@@ -169,7 +178,7 @@ gulp.task('connect', () => {
 });
 
 // 编译打包，正式环境
-gulp.task('build', ['clean', 'sass', 'copy:prod'], () => {
+gulp.task('build', ['clean', 'styles', 'copy:prod'], () => {
   gulp.start(['webpack:build']);
 });
 

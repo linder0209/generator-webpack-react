@@ -2,8 +2,10 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlwebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin  from 'extract-text-webpack-plugin';
-import precss  from 'precss';
+<% if (postcss) { %>
+import precss from 'precss';
 import autoprefixer from 'autoprefixer';
+<% } %>
 
 const appPath = path.resolve(__dirname, 'app');
 
@@ -15,12 +17,14 @@ let webpackConfig = {
     extensions: ['', '.js', '.jsx', '.css', '.json'],
     alias: {} //根据需要添加别名
   },
+  <% if (postcss) { %>
   postcss () {
     return {
       defaults: [precss, autoprefixer],
       cleaner: [autoprefixer({browsers: ['last 2 version', 'chrome >=30', 'Android >= 4.3']})]
     };
-  },
+  },<% } %>
+
   entry: {
     index: ['./app/scripts/index.js'],
     //添加要打包在vendors里面的库，作为公共的js文件
