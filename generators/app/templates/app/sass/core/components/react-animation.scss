@@ -1,0 +1,103 @@
+/*react 动画效果*/
+.wrap {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+}
+
+// 透明效果
+.example-opacity-enter {
+  opacity: 0.01;
+}
+
+.example-opacity-enter.example-opacity-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-opacity-leave {
+  opacity: 1;
+}
+
+.example-opacity-leave.example-opacity-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
+
+
+//fade in 效果
+.example-fade-in-enter {
+  transform: translate(-100%, -100%);
+}
+
+.example-fade-in-enter.example-fade-in-enter-active {
+  transform: translate(0, 0);
+  transition: transform 500ms ease-in;
+}
+
+.example-fade-in-leave {
+  transform: translate(0, 0);
+}
+
+.example-fade-in-leave.example-fade-in-leave-active {
+  transform: translate(100%, 100%);
+  transition: translate 500ms ease-in;
+}
+
+//从下往上动画效果
+.example-burst-in-enter {
+  opacity: 0.01;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-name: burstIn;
+  animation-name: burstIn
+}
+
+.example-burst-in--enter.example-burst-in-enter-active {
+  opacity: 1;
+}
+
+@-webkit-keyframes burstIn {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1
+  }
+}
+
+@keyframes burstIn {
+  0% {
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0
+  }
+
+  100% {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1
+  }
+}

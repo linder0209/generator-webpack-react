@@ -1,0 +1,2 @@
+//错误信息
+export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';

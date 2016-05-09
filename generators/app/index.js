@@ -8,6 +8,7 @@ var yosay = require('yosay');
 //用来处理文字样式的，比如文字颜色
 var chalk = require('chalk');
 var _ = require('underscore.string');
+//处理 html
 var htmlWiring = require('html-wiring');
 var pkg = require('../../package.json');
 
@@ -70,26 +71,31 @@ module.exports = Base.extend({
       ));
 
       var prompts = [{
+        type: 'input',
         name: 'appName',
         message: 'What is the name of your app?',
-        default: this.appname
+        default: this.appName
       }, {
+        type: 'input',
         name: 'appDescription',
         message: 'Description:',
         default: 'Create an app using WebpackReact generator with React Redux Router Webpack etc.'
       }, {
+        type: 'input',
         name: 'appVersion',
         message: 'Version:',
         default: '0.0.1'
       }, {
+        type: 'input',
         name: 'author',
         message: 'Author:',
         default: ''
       }];
 
+      //FIXME 使用 yeoman-generator 0.23.x 版本, 在 mac 下本地 npm link 不能正常执行,需要 yeoman-generator 0.22.x
       this.prompt(prompts, function (answers) {
         this.appName = answers.appName;
-        this.appDescription = answers.appDescription.replace('\"', '\\"')
+        this.appDescription = answers.appDescription.replace('\"', '\\"');
         this.appVersion = answers.appVersion;
         this.author = answers.author;
         done();
@@ -99,22 +105,34 @@ module.exports = Base.extend({
     askForCSSAndJSFile: function () {
       var done = this.async();
 
-      // welcome message
-      // 显示提示信息.
-      this.log(yosay(
-        'Welcome to the striking ' + chalk.red('WebpackReact') + ' generator!'
-      ));
-
-      /**
-       * 对于 sass 或 less 判断待完善
-       * {
-          name: 'Sass',
-          value: 'includeSass',
-          checked: true
-        }
-       *
-       */
       var prompts = [{
+        type: 'list',
+        name: 'style',
+        message: 'Which style language do you want to use?',
+        choices: [
+          {
+            name: 'css',
+            value: 'css',
+            suffix: '.css'
+          },
+          {
+            name: 'sass',
+            value: 'sass',
+            suffix: '.scss'
+          },
+          {
+            name: 'less',
+            value: 'less',
+            suffix: '.less'
+          }
+        ],
+        default: 'css'
+      }, {
+        type: 'confirm',
+        name: 'postcss',
+        message: 'Enable postcss?',
+        default: false
+      }, {
         type: 'checkbox',
         name: 'features',
         message: 'What more would you like?',
@@ -132,8 +150,9 @@ module.exports = Base.extend({
           return features && features.indexOf(feat) !== -1;
         }
 
-        //this.includeSass = hasFeature('includeSass');
-        this.includeBootstrap = hasFeature('includeBootstrap');
+        this.style = answers.style;
+        this.postcss = answers.postcss;
+        this.bootstrap = hasFeature('includeBootstrap');
 
         done();
       }.bind(this));
@@ -145,7 +164,10 @@ module.exports = Base.extend({
    * 保存用户配置项，同时配置工程（创建.editorconfig文件或者其他metadata文件）
    * Saving configurations and configure the project (creating .editorconfig files and other metadata files)
    */
-  configuring: {},
+  configuring: function () {
+    this.template('editorconfig', '.editorconfig');
+    this.template('_package.json', 'package.json');
+  },
 
   /**
    * 优先级 4
@@ -160,9 +182,6 @@ module.exports = Base.extend({
   writing: {
     gulpfile: function () {
       this.template('gulpfile.babel.js');
-    },
-    packageJSON: function () {
-      this.template('_package.json', 'package.json');
     },
     git: function () {
       this.template('gitignore', '.gitignore');
@@ -184,11 +203,25 @@ module.exports = Base.extend({
     writeReactApp: function () {
       var appPath = path.join(baseRootPath, 'app');
       var docsPath = path.join(baseRootPath, 'docs');
-      var examplesPath = path.join(baseRootPath, 'examples');
-
-      this.directory(appPath, path.join('app'));
+      var folder = ['images', 'json',  'scripts', 'static-html', 'templates'];
+      var that = this;
+      folder.forEach(function(item){
+        that.directory(path.join(appPath, item), path.join('app', item));
+      });
       this.directory(docsPath, path.join('docs'));
-      this.directory(examplesPath, path.join('examples'));
+
+      // 样式
+      var style = this.style;
+      if (style === 'css') {
+        this.directory(path.join(appPath, 'styles'), path.join('app', 'styles'));
+      } else if (style === 'sass') {
+        this.directory(path.join(appPath, 'sass'), path.join('app', 'sass'));
+      } else if (style === 'less') {
+        this.directory(path.join(appPath, 'less'), path.join('app', 'less'));
+      }
+
+      //模板文件
+      this.template(path.join(appPath, 'scripts/index.js'), path.join('app', 'scripts/index.js'));
 
       // 由于模板文件 layout.html 中，字符串与 yeoman generator 冲突，需要单独处理一下
       var tmplFile = readFileAsString(path.join(baseRootPath, 'app/templates/layout.html'));
@@ -214,7 +247,7 @@ module.exports = Base.extend({
     if (this.options['skip-install']) {
       return;
     }
-    this.installDependencies();
+    //this.installDependencies();
   },
 
   /**

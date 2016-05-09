@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "title": "列表",
+    "router": "/example"
+  },
+  {
+    "id": 2,
+    "title": "分页显示",
+    "router": "/example/person",
+    "activePath": [
+      "/example/person",
+      "/example/person/create"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "loading",
+    "router": "/example/loading"
+  }
+]

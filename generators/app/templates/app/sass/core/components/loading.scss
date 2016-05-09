@@ -1,0 +1,24 @@
+.load-shim{
+  display: none;
+  text-align: center;
+  text-indent: -9999px;
+}
+.loading {
+  display: inline-block;
+  background: #fff url(../images/loading.gif) center no-repeat;
+  background-size: 20px;
+}
+
+/*.loading::after {
+  position: absolute;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff url(../images/loading.gif) center no-repeat;
+  background-size: 20px;
+  content: '';
+  text-align: center;
+  text-indent: -9999px;
+  color: #999;
+}*/

@@ -1,19 +1,51 @@
+import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Person from '../components/Person';
-import * as Action from '../actions';
+import * as cacheActions from '../actions/caches';
+import * as indexActions from '../actions/index';
+
+class App extends Component {
+  render() {
+    const {
+      children, location, caches, cacheActions, errorMessage, indexActions
+    } = this.props;
+
+    return (
+      <div>
+        {children && React.cloneElement(children, {
+          key: location.pathname,
+          caches,
+          cacheActions,
+          errorMessage, 
+          indexActions
+        })}
+      </div>
+    );
+  }
+}
+
+App.propTypes = {
+  children: PropTypes.node,
+  location: PropTypes.object,
+  cacheActions: PropTypes.object,
+  caches: PropTypes.object,
+  errorMessage: PropTypes.string,
+  indexActions: PropTypes.object
+};
 
 function mapStateToProps(state) {
+  const {caches, errorMessage} = state;
   return {
-    persons: state.persons
+    caches,
+    errorMessage
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Action, dispatch),
-    dispatch
-  };
+    cacheActions: bindActionCreators(cacheActions, dispatch),
+    indexActions: bindActionCreators(indexActions, dispatch)
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Person);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

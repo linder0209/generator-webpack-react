@@ -15,7 +15,7 @@ generator-webpack-react 最新版本为 <%= pkg.version %>
 * 代码基于 [eslint](http://eslint.org/) 来检测，确保编码更加规范
 
 ## 开发与发布
-### 运行
+### 启动服务
 
 ```
 npm install -g gulp
@@ -30,8 +30,13 @@ gulp server
 gulp build
 ```
 
+### 启动打包后的服务
+
+```
+gulp connect
+```
+
 ## <%= appName %> 目录结构
 
-* app 项目主目录,存放项目开发过程中 js 和 scss html 等文件
+* app 项目主目录,存放项目开发过程中 js 和 css html 等文件
 * docs 帮助文档
-* examples 实例代码

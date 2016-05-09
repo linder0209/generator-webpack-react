@@ -2,6 +2,8 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlwebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin  from 'extract-text-webpack-plugin';
+import precss  from 'precss';
+import autoprefixer from 'autoprefixer';
 
 const appPath = path.resolve(__dirname, 'app');
 
@@ -10,7 +12,14 @@ let webpackConfig = {
   resolve: {
     root: [appPath], // 设置要加载模块根路径，该路径必须是绝对路径
     //自动扩展文件后缀名
-    extensions: ['', '.js', '.jsx', '.json', '.css']
+    extensions: ['', '.js', '.jsx', '.css', '.json'],
+    alias: {} //根据需要添加别名
+  },
+  postcss () {
+    return {
+      defaults: [precss, autoprefixer],
+      cleaner: [autoprefixer({browsers: ['last 2 version', 'chrome >=30', 'Android >= 4.3']})]
+    };
   },
   entry: {
     index: ['./app/scripts/index.js'],
@@ -35,7 +44,11 @@ let webpackConfig = {
       // https://github.com/webpack/extract-text-webpack-plugin 单独引入css文件
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'<% if (postcss) { %>, 'postcss-loader?pack=cleaner'<% } %>)
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       },
       // https://github.com/webpack/url-loader
       {
@@ -44,6 +57,10 @@ let webpackConfig = {
         query: {
           mimetype: 'image/png'
         }
+      },
+      {
+        test: /\.(mp4|ogg)$/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -64,7 +81,7 @@ let webpackConfig = {
       }
     }),
     // http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-    // 相当于命令参数 --optimize-dedupe
+    // 相当于命令参数 --optimize-dedupe 消除冗余的或重复的代码
     new webpack.optimize.DedupePlugin(),
     // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
     // 相当于命令参数 --optimize-minimize
@@ -72,7 +89,13 @@ let webpackConfig = {
       mangle: {
         except: ['$var1', '$var2'] // 设置不混淆变量名
       }
-    })
+    }),
+    //按照引用频度来排序各个模块,引用的越频繁,模块 id 越短,来优化代码,减少文件大小
+    new webpack.optimize.OccurenceOrderPlugin(),
+    //用来优化生成的代码 chunk,合并相同的代码
+    new webpack.optimize.AggressiveMergingPlugin(),
+    //用来保证编译过程不出错
+    new webpack.NoErrorsPlugin()
   ]
 };
 

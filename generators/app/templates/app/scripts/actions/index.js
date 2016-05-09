@@ -1,20 +1,8 @@
-import * as ActonTypes from '../constants/ActionTypes';
+import {RESET_ERROR_MESSAGE} from '../constants/IndexActionTypes';
 
-function listPerson(persons) {
+// 删除错误信息
+export function resetErrorMessage() {
   return {
-    type: ActonTypes.PERSON_LIST,
-    persons
+    type: RESET_ERROR_MESSAGE
   };
-}
-
-export function loadPerson(persons) {
-  return (dispatch) => {
-    setTimeout(() => {
-      const persons = [{
-        id: 1,
-        name: '李四'
-      }];
-      dispatch(listPerson(persons));
-    }, 3000);
-  }
 }

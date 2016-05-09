@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "data": {
+    "currentPage": 1,
+    "totalPage": 3,
+    "totalCount": 13,
+    "list": [
+      {
+        "id": 1,
+        "firstName": "张",
+        "lastName": "三"
+      },
+      {
+        "id": 2,
+        "firstName": "李",
+        "lastName": "四"
+      },
+      {
+        "id": 3,
+        "firstName": "张",
+        "lastName": "三"
+      },
+      {
+        "id": 4,
+        "firstName": "王",
+        "lastName": "五"
+      },
+      {
+        "id": 5,
+        "firstName": "赵",
+        "lastName": "六"
+      }
+    ]
+  },
+  "message": "成功"
+}
