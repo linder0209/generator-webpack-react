@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import {routerReducer as routing} from 'react-router-redux';
+import entity from './entity';
 import caches from './caches';
 import example from './example';
 import person from './person';
@@ -21,6 +22,7 @@ function errorMessage(state = null, action) {
 export default combineReducers({
   errorMessage,
   routing,
+  entity,
   caches,
   example,
   person,

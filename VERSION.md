@@ -1,5 +1,10 @@
 # generator-webpack-react - version log
 
+## 0.3.2 修复 bug (2016-6-13)
+
+* 优化 reducer action
+* 升级 node_modules
+
 ## 0.3.1 修复 bug (2016-5-9)
 
 * 修改 README 说明

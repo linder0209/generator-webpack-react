@@ -15,7 +15,9 @@ function mapStateToProps(state, ownProps) {
     const entityList = film[key];
     let entityPagination = assign({}, entityList);
     let {ids, entity} = entityList;
-    entityPagination.list = (ids || []).map(id => entity[id]);
+    if (ids) {
+      entityPagination.list = ids.map(id => entity[id]);
+    }
 
     delete entityPagination.ids;
     delete entityPagination.entity;

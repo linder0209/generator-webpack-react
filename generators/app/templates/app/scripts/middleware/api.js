@@ -1,5 +1,5 @@
 /*
- * 分页或列表中间件,默认为分页
+ * 返回实体,分页或列表中间件
  */
 
 // JSON 数据范式化
@@ -28,6 +28,7 @@ export default store => next => action => {
       jsonUrl: 'json/film/all.json',
       url: 'path/film/all',
       schema: FilmSchemas.ALL_FILM_LIST,
+      options: {} // 可选
       paging: false
     }
    */
@@ -84,13 +85,15 @@ export default store => next => action => {
       //把对象或数组转换为驼峰式
       const camelizedJson = camelizeKeys(data);
       const {currentPage, totalPage, totalCount} = camelizedJson;
-      // 用 normalize 把结果格式为标准的 Schema
-      //用 normalize 序列号处理
-      res = assign({},
-        normalize(paging ? (camelizedJson.list || []) : camelizedJson, schema),
-        paging ? {currentPage, totalPage, totalCount, lastPage: currentPage >= totalPage} : {}
-      );
-
+      if (typeof schema === 'string') {
+        res = assign({}, {[schema]: camelizedJson});
+      } else {
+        // 用 normalize 把结果集序列化处理, 与 Schema 对应
+        res = assign({},
+          normalize(paging ? (camelizedJson.list || []) : camelizedJson, schema),
+          paging ? {currentPage, totalPage, totalCount, lastPage: currentPage >= totalPage} : {}
+        );
+      }
       //调用成功 action，并把结果数据返回
       return next(actionWith({
         res,

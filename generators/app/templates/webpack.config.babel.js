@@ -59,7 +59,11 @@ let webpackConfig = {
     root: [appPath], // 设置要加载模块根路径，该路径必须是绝对路径
     //自动扩展文件后缀名
     extensions: ['', '.js', '.jsx', '.css', '.json'],
-    alias: {} //根据需要添加别名
+    //模块别名定义，方便直接引用别名
+      alias: {
+      containers: path.resolve(appPath, 'scripts/containers'),
+      components: path.resolve(appPath, 'scripts/components')
+    }
   },
 
   // 入口文件 让webpack用哪个文件作为项目的入口
@@ -71,7 +75,7 @@ let webpackConfig = {
 
   // 出口 让webpack把处理完成的文件放在哪里
   output: {
-    // 打包输出目录, 不能省略
+    // 编译输出目录, 不能省略
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js', //文件名称
     publicPath: './' //资源路径

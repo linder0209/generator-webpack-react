@@ -60,7 +60,7 @@ function paginate({types, paging = true, cleanType, customTypes}) {
     }
   }
 
-  // 根据不同的 key 返回处理不同的数据
+  // 返回分页或列表数据
   return function updatePagination(state = paging ? {
     isFetching: false,
     pageNo: 1, //下一页

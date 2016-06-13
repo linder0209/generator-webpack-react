@@ -15,7 +15,11 @@ let webpackConfig = {
     root: [appPath], // 设置要加载模块根路径，该路径必须是绝对路径
     //自动扩展文件后缀名
     extensions: ['', '.js', '.jsx', '.css', '.json'],
-    alias: {} //根据需要添加别名
+    //模块别名定义，方便直接引用别名
+      alias: {
+      containers: path.resolve(appPath, 'scripts/containers'),
+      components: path.resolve(appPath, 'scripts/components')
+    }
   },
   <% if (postcss) { %>
   postcss () {

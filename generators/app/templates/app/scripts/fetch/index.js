@@ -39,7 +39,13 @@ function callApi({url, options, jsonUrl}) {
   }
 
   const protocol = location.protocol;
-  let fullUrl = (url.indexOf(URL_ROOT) === -1) ? protocol + URL_ROOT + url : protocol + url;
+  let fullUrl;
+  if (url.indexOf('http') === 0) {
+    fullUrl = url;
+  } else {
+    fullUrl = (url.indexOf(URL_ROOT) === -1) ? protocol + URL_ROOT + url : protocol + url;
+  }
+
   let _options = assign({}, defaultOptions, options);
 
   //测试代码
